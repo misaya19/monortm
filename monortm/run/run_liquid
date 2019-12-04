@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ln -s in/TAPE3_spectral_lines.dat.0_55.v5.0_fast TAPE3
+ln -s in/MONORTM.IN_IATM0_dn MONORTM.IN
+
+for file in monortminput/*IN_liquid_cloud
+do
+  ln -s ${file} MONORTM_PROF.IN
+  time ../monortm_v5.2_linux_gnu_dbl
+  rm MONORTM_PROF.IN
+  mv MONORTM.OUT ${file}.out
+  mv MONORTM.LOG ${file}.log
+done
+rm TAPE3
+rm MONORTM.IN

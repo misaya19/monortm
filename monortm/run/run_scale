@@ -1,0 +1,14 @@
+#!/bin/sh
+
+ln -s in/TAPE3_spectral_lines.dat.0_55.v5.0_fast TAPE3
+
+for file in monortminput/*IN_NOSCALE_IATM1_dn
+do
+  ln -s ${file} MONORTM.IN
+  time ../monortm_v5.2_linux_gnu_dbl
+  rm MONORTM.IN
+  mv MONORTM.OUT ${file}.out
+  mv MONORTM.LOG ${file}.log
+  mv TAPE7 ${file}.tape7
+done
+rm TAPE3
